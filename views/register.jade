@@ -1,0 +1,30 @@
+extends base
+
+block vars
+  - var title = 'Register'
+
+block body
+  h1 Create an Account
+  <a href="/">Back</a>
+
+  if error
+    p ERROR: #{error}
+
+  form(method="post")
+    span Email:
+    input(type="email", name="email", required=true)
+    br
+
+    span Username:
+    input(type="text", name="username", required=true)
+    br
+
+    span Password:
+    input(type="password", name="password", required=true)
+    br
+
+    span Re-enter Password:
+    input(type="password", name="checkPword", required=true)
+    br
+
+    input(type="submit")
