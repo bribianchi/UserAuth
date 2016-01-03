@@ -9,7 +9,7 @@ Make sure Nodejs and MongoDB is installed.
 Create a directory /data/db for MongoDB (under C:/ using Windows).
 ```console
 $ cd UserAuth
-$ npm install
+$ npm install  # install dependancies
 $ mongod  # start mongodb
 $ node app.js  # host locally
 ```
