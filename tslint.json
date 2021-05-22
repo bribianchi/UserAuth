@@ -1,0 +1,50 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "align": [
+      true,
+      "parameters"
+    ],
+    "cyclomatic-complexity": true,
+    "import-blacklist": {},
+    "jsdoc-format": [
+      true,
+      "check-multiline-start"
+    ],
+    "no-unnecessary-initializer": false,
+    "one-variable-per-declaration": true,
+    "ordered-imports": true,
+    "prefer-const": true,
+    "prefer-switch": [
+      true,
+      {
+        "min-cases": 3
+      }
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "switch-final-break": [
+      true,
+      "always"
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "property-declaration",
+      "member-variable-declaration"
+    ],
+    "no-trailing-whitespace": true,
+    "no-console": false,
+    "no-shadowed-variable": false,
+    "no-string-literal": false
+  },
+  "rulesDirectory": []
+}
