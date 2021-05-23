@@ -8,7 +8,7 @@ $ touch .env #create .env file defining JWT_SECRET_KEY
 $ npm run dev  #host local server
 ```
 
-## `GET` /api/auth/{user}
+## `GET` /api/auth/{userid}
 Protected route that returns information about the user logged in.
 
 Response 
