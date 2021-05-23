@@ -8,7 +8,7 @@ $ touch .env #create .env file defining JWT_SECRET_KEY
 $ npm run dev  #host local server
 ```
 
-### `GET` /api/auth/{user}
+## `GET` /api/auth/{user}
 Protected route that returns information about the user logged in.
 
 Response 
@@ -19,7 +19,9 @@ Response
 } 
 ```
 
-### `POST` /api/auth/signup
+## `POST` /api/auth/signup
+Creates a user with a unique email and username. If successful, returns an access and refresh token.
+
 Body 
 ```json
 {
@@ -36,7 +38,9 @@ Response
 } 
 ```
 
-### `POST` /api/auth/login
+## `POST` /api/auth/login
+Given a valid email and password, returns an access and refresh token.
+
 Body 
 ```json
 {
@@ -56,7 +60,9 @@ Response
 } 
 ```
 
-### `POST` /api/auth/forgot
+## `POST` /api/auth/forgot
+Given a valid email address, updates the user with a reset code and sends an email with a reset link.
+
 Body 
 ```json
 {
@@ -70,7 +76,9 @@ Response
 }
 ```
 
-### `POST` /api/auth/reset
+## `POST` /api/auth/reset
+Resets a user's password when given the correct reset code.
+
 Body 
 ```json
 {
@@ -85,7 +93,9 @@ Response
 }
 ```
 
-### `POST` /api/auth/refresh_token
+## `POST` /api/auth/refresh_token
+Generates a JWT access token from a valid Refresh token.
+
 Body 
 ```json
 {

@@ -2,13 +2,16 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 const { JWT_SECRET_KEY } = process.env;
 
+/**
+ * Middleware that checks for the presence of a bearer authorization header
+ * and verifies the authenticity of the JWT access token.
+ */
 export const checkAuth = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
   const authHeader = req.headers['authorization'];
   if (!authHeader) {
     return res.status(401).json({ error: "Access denied, token missing." });
   }
   const token = authHeader.split(' ')[1];
-
   try {
     const payload: any = jwt.verify(token, JWT_SECRET_KEY);
     if (payload.type !== 'access') {
@@ -16,8 +19,6 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         .status(401)
         .json({ error: "Invalid token, please login again." });
     }
-
-    // req.user = payload.user;
     next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {

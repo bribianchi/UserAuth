@@ -2,11 +2,15 @@ import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from "../models/user.model";
-import Utils from '../util/util';
+import { makeId } from '../util/util';
 import { createAccessToken, createRefreshToken } from './token.controller';
 
 const { JWT_SECRET_KEY } = process.env;
 
+/**
+ * Creates a user with a unique email and username.
+ * If successful, returns an access and refresh token.
+ */
 export const signup = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, username, password } = req.body;
@@ -39,6 +43,9 @@ export const signup = async (req: Request, res: Response): Promise<Response> => 
   }
 };
 
+/**
+ * Given a valid email and password, returns an access and refresh token.
+ */
 export const login = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, password } = req.body;
@@ -69,16 +76,21 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
+/**
+ * Given a valid email address, updates the user with a reset code and sends an email with a reset link.
+ */
 export const forgot = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email } = req.body;
     if (!email) {
       return res.status(400).json({ error: "Email is required." });
     }
-    const code: string = Utils.makeid(10);
-    const filter = { email };
-    const update = { resetCode: code };
-    const user = await User.findOneAndUpdate(filter, update, { useFindAndModify: false });
+    const code: string = makeId(10);
+    const user = await User.findOneAndUpdate(
+      { email },
+      { resetCode: code },
+      { useFindAndModify: false }
+    );
     if (!user) {
       return res.status(404).json({ error: "No user found with this email." });
     }
@@ -90,6 +102,9 @@ export const forgot = async (req: Request, res: Response): Promise<Response> => 
   }
 };
 
+/**
+ * Resets a user's password when given the correct reset code.
+ */
 export const reset = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { resetCode, newPassword } = req.body;
@@ -114,6 +129,9 @@ export const reset = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
+/**
+ * Generates a JWT access token from a valid Refresh token.
+ */
 export const refreshToken = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { refreshToken } = req.body;
@@ -145,6 +163,9 @@ export const refreshToken = async (req: Request, res: Response): Promise<Respons
   }
 };
 
+/**
+ * Returns the user's information from what is stored in their JWT access token.
+ */
 export const getUserInfo = async (req: Request, res: Response): Promise<Response> => {
   try {
     const token = req.headers['authorization'].split(' ')[1];

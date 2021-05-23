@@ -15,7 +15,9 @@ const userSchema = new mongoose.Schema<UserDocument>({
   resetCode: { type: String }
 });
 
-// pre save hook to hash password before saving user into the database:
+/**
+ * Pre-save hook to hash the password before saving the user into the database.
+ */
 userSchema.pre("save", async function (next: (err?: mongoose.NativeError) => void): Promise<void> {
   const user = this as UserDocument;
   if (!user.isModified('password')) return next();
