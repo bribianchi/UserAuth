@@ -14,6 +14,6 @@ router.post("/auth/reset", reset);
 
 router.post("/auth/refresh_token", refreshToken);
 
-router.get("/auth/:user", checkAuth, getUserInfo);
+router.get("/auth/:userid", checkAuth, getUserInfo);
 
 export default router;
